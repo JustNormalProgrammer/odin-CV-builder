@@ -1,0 +1,28 @@
+.input-container{
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.input-subsection{
+    border: 1px solid white;
+    border-radius: 6px;
+    padding: 15px;
+  }
+.input-subsection form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-sizing: border-box;
+}
+.input-subsection input{
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 3px 4px;
+}
+.input-subsection .button-group{
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
