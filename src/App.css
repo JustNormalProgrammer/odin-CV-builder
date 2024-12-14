@@ -1,8 +1,9 @@
 #root{
-  width: 100%;
+  width: 100vw;
   padding: 10px 20px;
 }
 .container{
   display: flex;
+  flex-wrap: wrap;
   gap: 40px;
 }

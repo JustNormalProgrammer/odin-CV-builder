@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    flex-grow: 1;
 }
 .input-subsection{
     border: 1px solid white;
@@ -25,4 +26,7 @@
     display: flex;
     justify-content: space-between;
     gap: 5px;
+}
+.input-subsection hr{
+    width: 100%;
 }
