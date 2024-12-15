@@ -2,14 +2,12 @@ import { useState } from "react";
 import "../styles/inputSection.css";
 import { Fragment } from "react";
 
-const handleForm = (e) => {
-  e.preventDefault();
-  console.log(e.target);
-}
 
-function GeneralSection() {
+
+
+function GeneralSection({isSubmitted, handleForm}) {
   return (
-    <div className="input-subsection">
+    <div className={isSubmitted ? "input-subsection submitted" : "input-subsection"}>
       <form action="#" onSubmit={handleForm}>
         <label htmlFor="name">
           Full Name:
@@ -36,9 +34,9 @@ function GeneralSection() {
     </div>
   );
 }
-function EducationalSection() {
+function EducationalSection({isSubmitted, handleForm}) {
   return (
-    <div className="input-subsection">
+    <div className={isSubmitted ? "input-subsection submitted" : "input-subsection"}>
       <form action="#" onSubmit={handleForm}>
         <label htmlFor="school-name">
           School name:
@@ -76,11 +74,11 @@ function EducationalSection() {
     </div>
   );
 }
-function PracticalExperienceSection() {
-  const [inputFields, setInputFields] = useState([
-    {id: crypto.randomUUID(), companyName: '', positionTitle: '', desc: '', dateStart: '', dateEnd: ''},
-  ]);
+function PracticalExperienceSection({isSubmitted, onValueChange, handleForm}) {
+  const initialState = [{id: crypto.randomUUID(), companyName: '', positionTitle: '', desc: '', dateStart: '', dateEnd: ''}];
+  const [inputFields, setInputFields] = useState(initialState);
   const handleInputChange = (id, event) => {
+    onValueChange();
     const newInputFields = inputFields.map(i => {
       if(id === i.id) {
         i[event.target.name] = event.target.value;
@@ -95,10 +93,14 @@ function PracticalExperienceSection() {
   const handleDelete = (id) => {
     setInputFields(inputFields.filter(inputSet => inputSet.id !== id));
   }
+  const handleReset = () => {
+    onValueChange();
+    setInputFields([...initialState]);
+  }
   return (
-    <div className="input-subsection">
+    <div className={isSubmitted ? "input-subsection submitted" : "input-subsection"}>
       <form action="#" onSubmit={handleForm}>
-        {inputFields.map(inputSet => {
+        {inputFields.map((inputSet, index) => {
           return (
            <Fragment key={inputSet.id}>
              <label htmlFor={`company-name-${inputSet.id}`}>
@@ -141,13 +143,13 @@ function PracticalExperienceSection() {
               <input type="date" name="dateEnd" id={`dateEnd-${inputSet.id}`} value={inputSet.dateEnd} onChange={(event) => handleInputChange(inputSet.id, event)}/>
              </label>
              <button disabled={inputFields.length === 1} onClick={() => handleDelete(inputSet.id)}>Delete</button>
-             <hr></hr>
+             {(inputFields[index+1]) && <hr></hr>}
            </Fragment>
           )
         })}
         <div className="button-group">
-          <button type="reset">Reset</button>
-          <button onClick={handleAddInputSet}>Add workplace</button>
+          <button type="reset" onClick={handleReset}>Reset</button>
+          <button type="button" onClick={handleAddInputSet}>Add workplace</button>
           <button type="submit">Submit</button>
         </div>
       </form>
@@ -155,11 +157,25 @@ function PracticalExperienceSection() {
   );
 }
 export default function InputSection() {
+  const [formsSubmitted, setFormsSubmitted] = useState([false,false,false]);
+  
+  const handleForm = (e) => {
+    e.preventDefault();
+  }
   return (
     <div className="input-container">
-      <GeneralSection />
-      <EducationalSection />
-      <PracticalExperienceSection/>
+      <GeneralSection isSubmitted={formsSubmitted[0]} onValueChange={() => setFormsSubmitted(formsSubmitted.map((value, idx) => idx === 0 ?  false : value))} handleForm={(e) => {
+        handleForm(e);
+        setFormsSubmitted(formsSubmitted.map((value, idx) => idx === 0 ?  true : value))
+      }}/>
+      <EducationalSection isSubmitted={formsSubmitted[1]} onValueChange={() => setFormsSubmitted(formsSubmitted.map((value, idx) => idx === 1 ?  false : value))} handleForm={(e) => {
+        handleForm(e);
+        setFormsSubmitted(formsSubmitted.map((value, idx) => idx === 1 ?  true : value))
+      }}/>
+      <PracticalExperienceSection isSubmitted={formsSubmitted[2]} onValueChange={() => setFormsSubmitted(formsSubmitted.map((value, idx) => idx === 2 ?  false : value))} handleForm={(e) => {
+        handleForm(e);
+        setFormsSubmitted(formsSubmitted.map((value, idx) => idx === 2 ?  true : value))
+      }}/>
     </div>
   );
 }
