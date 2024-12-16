@@ -1,8 +1,18 @@
-.card{
-    background-color: white;
-    flex-grow: 4;
+.cv-page{
+    flex-grow: 2;
     flex-basis: 300px;
     min-height: 1000px;
+    position: relative;
+    box-sizing: border-box;
+}
+.download-btn{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.card{
+    height: 100%;
+    background-color: white;
     box-sizing: border-box;
     padding: 0 1em;
     width: 100%;
@@ -16,7 +26,7 @@
 .name-header{
     margin-top: 1.2em;
     box-sizing: border-box;
-    font-size: 2rem;
+    font-size: clamp(8px, calc(20px + 1vw), 2rem);
     font-weight: 700;
 }
 .separator{
@@ -51,7 +61,7 @@
     margin: 0;
 }
 .contact-text{
-    font-size: clamp(8px, calc(10px + 1vw), 48px);
+    font-size: clamp(8px, calc(10px + 1vw), 1.3rem);
 }
 .contact img{
     width: 30px;
