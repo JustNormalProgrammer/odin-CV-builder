@@ -1,8 +1,80 @@
 .card{
     background-color: white;
-    flex-grow: 2;
+    flex-grow: 4;
     flex-basis: 300px;
-    min-height: 100px;
+    min-height: 1000px;
     box-sizing: border-box;
-    padding: 4rem;
+    padding: 0 1em;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+    align-items: center;
+    color: rgb(0, 0, 0);
+}
+.name-header{
+    margin-top: 1.2em;
+    box-sizing: border-box;
+    font-size: 2rem;
+    font-weight: 700;
+}
+.separator{
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+}
+.separator-text{
+    text-wrap: nowrap;
+    font-weight: 600;
+    font-size: 1.3em;
+}
+.line{
+    width: 100%;
+    height: 0.2rem;
+    background-color: rgb(43, 43, 150);
+}
+.profile-name{
+    font-size: 2rem;
+}
+.contact-group{
+    display: flex;
+    gap: 1em;
+}
+.contact{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.content > p{
+    margin: 0;
+}
+.contact-text{
+    font-size: clamp(8px, calc(10px + 1vw), 48px);
+}
+.contact img{
+    width: 30px;
+}
+.content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.main-text{
+    font-weight: 600;
+    font-size: 1em;
+}
+.work-experience{
+    width: 100%;;
+}
+.date-group{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+.line-connection{
+    flex-grow: 2;
+    border-top: 2px dashed rgb(53, 137, 248);
 }

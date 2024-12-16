@@ -1,6 +1,18 @@
-import { useImmer } from "use-immer";
+
 import "../styles/inputSection.css";
 import { Fragment } from "react";
+
+function ButtonGroup({addWorkplace, addInputSet}){
+  return (
+    <div className="button-group">
+          <button type="reset">Reset</button>
+          {addWorkplace && <button type="button" onClick={addInputSet}>
+            Add workplace
+          </button>}
+          <button type="submit">Submit</button>
+    </div>
+  )
+}
 
 function GeneralSection({
   isSubmitted,
@@ -50,10 +62,7 @@ function GeneralSection({
             onChange={(e) => onInputChange(e, id)}
           />
         </label>
-        <div className="button-group">
-          <button type="reset">Reset</button>
-          <button type="submit">Submit</button>
-        </div>
+        <ButtonGroup/>
       </form>
     </div>
   );
@@ -109,10 +118,7 @@ function EducationalSection({
             onChange={(e) => onInputChange(e, id)}
           />
         </label>
-        <div className="button-group">
-          <button type="reset">Reset</button>
-          <button type="submit">Submit</button>
-        </div>
+        <ButtonGroup/>
       </form>
     </div>
   );
@@ -201,104 +207,13 @@ function PracticalExperienceSection({
             </Fragment>
           );
         })}
-        <div className="button-group">
-          <button type="reset">Reset</button>
-          <button type="button" onClick={addInputSet}>
-            Add workplace
-          </button>
-          <button type="submit">Submit</button>
-        </div>
+        <ButtonGroup addWorkplace={true} addInputSet={addInputSet}/>
       </form>
     </div>
   );
 }
-export default function InputSection() {
-  const initialFormData = [
-    { name: "", email: "", tel: "" },
-    { schoolName: "", titleOfStudy: "", dateOfStudy: "" },
-    [
-      {
-        id: crypto.randomUUID(),
-        companyName: "",
-        positionTitle: "",
-        desc: "",
-        dateStart: "",
-        dateEnd: "",
-      },
-    ],
-  ];
+export default function InputSection({formData, handleFormReset, handleFormSubmit, onInputChange, handleAddInputSet, handleDeleteInputSet}) {
 
-  const [formData, updateFormData] = useImmer([
-    { id: 0, isSubmitted: false, data: { name: "", email: "", tel: "" } },
-    {
-      id: 1,
-      isSubmitted: false,
-      data: { schoolName: "", titleOfStudy: "", dateOfStudy: "" },
-    },
-    {
-      id: 2,
-      isSubmitted: false,
-      data: [
-        {
-          id: crypto.randomUUID(),
-          companyName: "",
-          positionTitle: "",
-          desc: "",
-          dateStart: "",
-          dateEnd: "",
-        },
-      ],
-    },
-  ]);
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    const { id } = e.target;
-    updateFormData((draft) => {
-      draft[id].isSubmitted = true;
-    });
-  };
-  const onInputChange = (e, id, inputSetId) => {
-    updateFormData((draft) => {
-      draft[id].isSubmitted = false;
-      if (id !== 2) {
-        draft[id]["data"][e.target.name] = e.target.value;
-      } else {
-        for (let inputSet of draft[id]["data"]) {
-          if (inputSetId === inputSet.id) {
-            inputSet[e.target.name] = e.target.value;
-          }
-        }
-      }
-    });
-  };
-  const handleFormReset = (e) => {
-    const { id } = e.target;
-    updateFormData((draft) => {
-      draft[id].data = initialFormData[id];
-      draft[id].isSubmitted = false;
-    });
-  };
-  const handleAddInputSet = () => {
-    updateFormData((draft) => {
-      draft[2].isSubmitted = false;
-      draft[2]["data"].push({
-        id: crypto.randomUUID(),
-        companyName: "",
-        positionTitle: "",
-        desc: "",
-        dateStart: "",
-        dateEnd: "",
-      });
-    });
-  };
-  const handleDeleteInputSet = (id) => {
-    updateFormData((draft) => {
-      draft[2].isSubmitted = false;
-      draft[2]["data"] = draft[2]["data"].filter(
-        (inputSet) => inputSet.id !== id
-      );
-    });
-  };
   return (
     <div className="input-container">
       <GeneralSection
