@@ -37,7 +37,7 @@ function DateConnector({ date1, date2 }) {
     <div className="date-group">
       <div>{date1}</div>
       <div className="line-connection"></div>
-      <div>{date2}</div>
+      <div>{date2 ? date2 : "Current"}</div>
     </div>
   );
 }
@@ -112,7 +112,7 @@ export default function Card({ formData }) {
                   </div>
                   <p>{work.positionTitle}</p>
                   <p>{work.desc}</p>
-                  <DateConnector date1={work.dateStart} date2={work.dateEnd} />
+                  {work.dateStart && <DateConnector date1={work.dateStart} date2={work.dateEnd} />}
                 </div>
               );
             })}
