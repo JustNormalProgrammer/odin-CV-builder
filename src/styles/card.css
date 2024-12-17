@@ -3,6 +3,7 @@
     flex-basis: 300px;
     position: relative;
     box-sizing: border-box;
+    min-height: 900px;
 }
 .download-btn{
     position: absolute;
